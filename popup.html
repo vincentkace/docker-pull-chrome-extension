@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Docker Image TAR Downloader</title>
+  <style>
+    :root { color-scheme: light; font: 14px/1.5 system-ui, "Segoe UI", sans-serif; color: #202833; background: #f7f8fa; }
+    * { box-sizing: border-box; }
+    body { width: 370px; margin: 0; padding: 18px; }
+    h1 { margin: 0 0 4px; font-size: 17px; }
+    .sub { color: #647184; font-size: 12px; margin-bottom: 17px; }
+    label { display: block; margin: 12px 0 5px; font-weight: 600; font-size: 12px; }
+    input, select { width: 100%; border: 1px solid #cbd3dd; border-radius: 7px; padding: 9px 10px; font: inherit; background: white; }
+    .row { display: grid; grid-template-columns: 1fr 150px; gap: 10px; }
+    button { width: 100%; margin-top: 15px; padding: 10px 12px; border: 0; border-radius: 7px; color: white; background: #176b55; font: inherit; font-weight: 650; cursor: pointer; }
+    button:hover { background: #105542; }
+    button:disabled { background: #8b9a96; cursor: wait; }
+    button.secondary { margin-top: 8px; color: #344255; background: #e5e9ef; font-weight: 550; }
+    button.secondary:hover { background: #d7dde6; }
+    progress { width: 100%; height: 9px; margin-top: 15px; accent-color: #188366; }
+    #status { min-height: 40px; margin-top: 7px; color: #485667; overflow-wrap: anywhere; font-size: 12px; }
+    #status[data-kind="error"] { color: #ad2828; }
+    .hint { margin-top: 13px; border-top: 1px solid #dde2e8; padding-top: 11px; color: #687486; font-size: 11px; }
+    code { color: #354459; }
+  </style>
+</head>
+<body>
+  <h1>Docker 镜像 TAR 下载</h1>
+  <div class="sub">从 Docker Hub 或其他 HTTPS Registry 拉取公共镜像</div>
+  <label for="image">镜像名称</label>
+  <input id="image" value="hello-world:latest" placeholder="python:3.12-slim 或 user/image:tag" spellcheck="false">
+  <div class="row">
+    <div>
+      <label for="platform">平台</label>
+      <select id="platform">
+        <option value="linux/amd64">linux/amd64</option>
+        <option value="linux/arm64">linux/arm64</option>
+        <option value="linux/arm/v7">linux/arm/v7</option>
+        <option value="linux/386">linux/386</option>
+      </select>
+    </div>
+    <div></div>
+  </div>
+  <button id="pull">拉取并下载 .tar</button>
+  <button id="diagnose" class="secondary">检查 Registry 连接</button>
+  <progress id="progress" max="100" value="0"></progress>
+  <div id="status" aria-live="polite">支持公开 Registry v2 镜像；默认导出 linux/amd64。</div>
+  <div class="hint">首次访问自定义 Registry 时，Chrome 会单独询问该域名的权限。支持公开 Registry v2 / Bearer token；当前不支持私有仓库凭据和 HTTP Registry。</div>
+  <script src="image-ref.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

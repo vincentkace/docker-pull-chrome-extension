@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Docker Image TAR Downloader",
+  "version": "0.1.1",
+  "description": "Pull a public Docker Registry image and export a Docker-compatible TAR archive.",
+  "permissions": ["downloads", "offscreen", "storage"],
+  "host_permissions": [
+    "https://auth.docker.io/*",
+    "https://registry-1.docker.io/*",
+    "https://production.cloudfront.docker.com/*"
+  ],
+  "optional_host_permissions": ["https://*/*"],
+  "action": {
+    "default_title": "Docker image TAR downloader",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  }
+}
